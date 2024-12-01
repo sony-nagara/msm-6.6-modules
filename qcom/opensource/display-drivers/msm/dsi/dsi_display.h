@@ -847,4 +847,8 @@ int dsi_display_update_transfer_time(void *display, u32 transfer_time);
  */
 int dsi_display_get_panel_scan_line(void *display, u16 *scan_line, ktime_t *scan_line_ts);
 
+#ifdef CONFIG_DRM_SDE_SPECIFIC_PANEL
+struct dsi_display *dsi_display_get_main_display(void);
+#endif /* CONFIG_DRM_SDE_SPECIFIC_PANEL */
+
 #endif /* _DSI_DISPLAY_H_ */
