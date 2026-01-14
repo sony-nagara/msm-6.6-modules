@@ -4667,6 +4667,7 @@ error:
 int dsi_panel_set_lp1(struct dsi_panel *panel)
 {
 	int rc = 0;
+	int bl_lvl;
 
 	if (!panel) {
 		DSI_ERR("invalid params\n");
@@ -4697,6 +4698,9 @@ int dsi_panel_set_lp1(struct dsi_panel *panel)
 		panel->spec_pdata->aod_mode = 1;
 		pr_notice("%s: set AOD mode ON\n", __func__);
 	}
+
+	bl_lvl = dsi_panel_get_backlight(panel);
+	dsi_panel_set_backlight(panel, bl_lvl);
 #else
 	if (rc)
 		DSI_ERR("[%s] failed to send DSI_CMD_SET_LP1 cmd, rc=%d\n",
