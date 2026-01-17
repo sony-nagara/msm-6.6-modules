@@ -3234,6 +3234,15 @@ int drm_notifier_callback(struct notifier_block *self, unsigned long event, void
 				ts->lowpower_mode = ts->aod_pending_lowpower_mode;
 				sec_ts_set_lowpowermode(ts, ts->lowpower_mode);
 			}
+		} else if (event == DRM_EXT_EVENT_AOD_CHANGE) {
+			int enabled = *(int *)evdata->data;
+			ts->aod_pending_lowpower_mode = enabled;
+			input_info(true, &ts->client->dev,
+				"Applying aod_pending_lowpower_mode through DRM event: %d\n",
+				ts->aod_pending_lowpower_mode);
+			ts->aod_pending = false;
+			ts->lowpower_mode = ts->aod_pending_lowpower_mode;
+			sec_ts_set_lowpowermode(ts, ts->lowpower_mode);
 		}
 	}
 
