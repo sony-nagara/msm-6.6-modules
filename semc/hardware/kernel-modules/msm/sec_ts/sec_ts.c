@@ -3197,6 +3197,11 @@ int drm_notifier_callback(struct notifier_block *self, unsigned long event, void
 					time.tv_sec, time.tv_nsec);
 				break;
 			case DRM_BLANK_UNBLANK:
+					input_info(true, &ts->client->dev, "Out of AOD mode first");
+					ts->aod_pending = false;
+					ts->aod_pending_lowpower_mode = false;
+					ts->lowpower_mode = false;
+					sec_ts_set_lowpowermode(ts, ts->lowpower_mode);
 				break;
 			default:
 				break;
